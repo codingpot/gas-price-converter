@@ -1,9 +1,92 @@
 ﻿@page "/"
+@using gas_price_converter.Shared.Models
+@inject GasPriceService _gasPriceService
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Gas Price Converter</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="d-flex align-items-stretch">
+    <CurrencyTypeDropdown
+        CurrencyType="@InputGasPrice.Currency.CurrencyType"
+        OnCurrencySelect="OnInputCurrencyChange"/>
 
-Welcome to your new app.
+    <input class="form-control" type="number" name="input_value" id="input_value" value="@InputGasPrice.Currency.Value"
+           @oninput="OnInputCurrencyValueChange">
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    <VolumeTypeDropdown VolumeType="@InputGasPrice.VolumeType"
+                        OnVolumeTypeChange="OnInputVolumeTypeChange"/>
+
+</div>
+
+<p class="text-center">To</p>
+
+<div class="d-flex align-items-stretch">
+    <CurrencyTypeDropdown CurrencyType="@OutputGasPrice.Currency.CurrencyType"
+                          OnCurrencySelect="OnOutputCurrencyChange"/>
+    <input class="form-control" type="number" readonly value="@OutputGasPrice.Currency.Value"/>
+
+    <VolumeTypeDropdown VolumeType="@OutputGasPrice.VolumeType"
+                        OnVolumeTypeChange="OnOutputVolumeTypeChange"/>
+</div>
+
+@code
+{
+    public GasPrice InputGasPrice = new(new Currency(CurrencyType.Usd, 4.29), VolumeType.Gallon);
+    public GasPrice OutputGasPrice = new(new Currency(CurrencyType.Krw, 1), VolumeType.Liter);
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        UpdateOutputCurrency();
+    }
+
+    private void OnInputCurrencyValueChange(ChangeEventArgs args)
+    {
+        InputGasPrice = InputGasPrice with {
+            Currency = InputGasPrice.Currency with {
+                Value = double.Parse((args.Value as string)!),
+                },
+            };
+        UpdateOutputCurrency();
+    }
+
+    private void UpdateOutputCurrency()
+    {
+        OutputGasPrice = _gasPriceService.Convert(InputGasPrice, OutputGasPrice.Currency.CurrencyType, OutputGasPrice.VolumeType);
+    }
+
+    private void OnInputCurrencyChange(CurrencyType currencyType)
+    {
+        InputGasPrice = InputGasPrice with {
+            Currency = InputGasPrice.Currency with{
+                CurrencyType = currencyType,
+                },
+            };
+        UpdateOutputCurrency();
+    }
+
+    private void OnOutputCurrencyChange(CurrencyType currencyType)
+    {
+        OutputGasPrice = OutputGasPrice with {
+            Currency = OutputGasPrice.Currency with{
+                CurrencyType = currencyType
+                },
+            };
+        UpdateOutputCurrency();
+    }
+
+    private void OnOutputVolumeTypeChange(VolumeType volumeType)
+    {
+        OutputGasPrice = OutputGasPrice with {
+            VolumeType = volumeType
+            };
+        UpdateOutputCurrency();
+    }
+
+    private void OnInputVolumeTypeChange(VolumeType volumeType)
+    {
+        InputGasPrice = InputGasPrice with {
+            VolumeType = volumeType,
+            };
+        UpdateOutputCurrency();
+    }
+}

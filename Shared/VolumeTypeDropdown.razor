@@ -1,0 +1,23 @@
+<select
+    class="form-control"
+    name="volume_type"
+        @oninput="OnInputVolumeTypeChange"
+        value="@VolumeType.ToString().ToUpper()">
+    <option value="LITER">LITER</option>
+    <option value="GALLON">GALLON</option>
+</select>
+
+@code {
+    [Parameter]
+    public VolumeType VolumeType { get; set; }
+
+    [Parameter]
+    public EventCallback<VolumeType> OnVolumeTypeChange { get; set; }
+
+    private void OnInputVolumeTypeChange(ChangeEventArgs obj)
+    {
+        OnVolumeTypeChange.InvokeAsync(Enum.Parse<VolumeType>(obj.Value as string ?? string.Empty,
+            true));
+    }
+
+}

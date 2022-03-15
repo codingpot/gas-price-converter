@@ -1,0 +1,28 @@
+@using gas_price_converter.Shared.Models
+
+<select 
+    class="form-control"
+    name="currency" 
+        value="@CurrencyType.ToString().ToUpper()"
+        @oninput="OnInputCurrencyChange">
+    <option value="KRW">KRW</option>
+    <option value="USD">USD</option>
+</select>
+
+@code {
+
+    [Parameter]
+    public CurrencyType CurrencyType { get; set; }
+
+    [Parameter]
+    public EventCallback<CurrencyType> OnCurrencySelect { get; set; }
+
+    private void OnInputCurrencyChange(ChangeEventArgs obj)
+    {
+        if (Enum.TryParse(obj.Value as string, true, out CurrencyType outCurrencyType))
+        {
+            OnCurrencySelect.InvokeAsync(outCurrencyType);
+        }
+    }
+
+}
