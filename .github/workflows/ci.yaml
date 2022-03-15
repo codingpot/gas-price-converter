@@ -1,0 +1,22 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+      - with:
+          CURRENCY_FREAKS_API_KEY: ${{ secrets.CURRENCY_FREAKS_API_KEY }}
+        run: envsubst < wwwroot/appsettings.json > wwwroot/appsettings.json
+      - run: dotnet publish -c Release -o release
+      - run: sed -i 's/<base href="\/" \/>/<base href="\/gas-price-converter\/" \/>/g' release/wwwroot/index.html
+      - uses: JamesIves/github-pages-deploy-action@v4.2.5
+        with:
+          branch: gh-pages
+          folder: release/wwwroot
