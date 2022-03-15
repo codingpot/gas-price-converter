@@ -11,7 +11,7 @@ jobs:
       - uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 6.0.x
-      - run: envsubst < wwwroot/appsettings.json > wwwroot/appsettings.json
+      - run: envsubst < wwwroot/appsettings.json.tmpl > wwwroot/appsettings.json
         env:
           CURRENCY_FREAKS_API_KEY: ${{ secrets.CURRENCY_FREAKS_API_KEY }}
       - run: dotnet publish -c Release -o release
