@@ -15,7 +15,9 @@ jobs:
         env:
           CURRENCY_FREAKS_API_KEY: ${{ secrets.CURRENCY_FREAKS_API_KEY }}
       - run: dotnet publish -c Release -o release
-      - run: sed -i 's/<base href="\/" \/>/<base href="\/gas-price-converter\/" \/>/g' release/wwwroot/index.html
+      - run: |
+          sed -i 's/<base href="\/" \/>/<base href="\/gas-price-converter\/" \/>/g' release/wwwroot/index.html
+          touch release/wwwroot/.nojekyll
       - uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
           branch: gh-pages
