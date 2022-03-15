@@ -17,6 +17,7 @@ jobs:
       - run: envsubst < wwwroot/appsettings.json.tmpl > wwwroot/appsettings.json
         env:
           CURRENCY_FREAKS_API_KEY: ${{ secrets.CURRENCY_FREAKS_API_KEY }}
+      - run: dotnet test ../Tests
       - run: dotnet publish -c Release -o release
       - run: |
           sed -i 's/<base href="\/" \/>/<base href="\/gas-price-converter\/" \/>/g' release/wwwroot/index.html
