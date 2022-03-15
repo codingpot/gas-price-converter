@@ -1,4 +1,4 @@
-namespace gas_price_converter.Shared.Models;
+namespace GasPriceConverter.Shared.Models;
 
 public enum CurrencyType
 {

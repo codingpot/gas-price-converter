@@ -1,3 +1,3 @@
-namespace gas_price_converter.Shared;
+namespace GasPriceConverter.Shared;
 
 public record Volume(VolumeType Type, double Value);

@@ -15,8 +15,4 @@
     <None Remove=".env" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Include=".github\workflows\ci.yaml" />
-  </ItemGroup>
-
 </Project>

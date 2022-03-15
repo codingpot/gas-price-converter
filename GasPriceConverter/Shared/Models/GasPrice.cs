@@ -1,6 +1,6 @@
-using gas_price_converter.Shared.Models;
+using GasPriceConverter.Shared.Models;
 
-namespace gas_price_converter.Shared;
+namespace GasPriceConverter.Shared;
 
 public record GasPrice(Currency Currency, VolumeType VolumeType)
 {

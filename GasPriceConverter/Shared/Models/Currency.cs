@@ -1,3 +1,3 @@
-namespace gas_price_converter.Shared.Models;
+namespace GasPriceConverter.Shared.Models;
 
 public record Currency(CurrencyType CurrencyType, double Value);
