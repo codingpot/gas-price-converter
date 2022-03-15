@@ -4,12 +4,12 @@
     "appsettings.json"
   ],
   "debugBuild": false,
-  "entryAssembly": "gas-price-converter",
+  "entryAssembly": "GasPriceConverter",
   "icuDataMode": 0,
   "linkerEnabled": true,
   "resources": {
     "assembly": {
-      "gas-price-converter.dll": "sha256-bpiP2p56OsUA5ewtKkmHqqdjFUxDla\/hx9Iqt+7OECI=",
+      "GasPriceConverter.dll": "sha256-2eCM8zvCDJthn559fPs2oZrkv1ASCp0xwgVcSy5C3IU=",
       "Microsoft.AspNetCore.Components.dll": "sha256-fh2ZLYW9R2NKQ03u4JZw9Oz5oVvUpfZyJwZ4fdCWdYI=",
       "Microsoft.AspNetCore.Components.Web.dll": "sha256-JrcahE7oAMMG1NZqgJfAQc1mtGDS9xAO6cDBWxDLgoY=",
       "Microsoft.AspNetCore.Components.WebAssembly.dll": "sha256-B8Lnq5DHN3150lrSqGXrsujrQ\/IIG4vYe5uOkxZfUAw=",
