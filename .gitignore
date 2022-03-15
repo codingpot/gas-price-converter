@@ -457,3 +457,4 @@ $RECYCLE.BIN/
 .env
 out/
 GasPriceConverter/wwwroot/appsettings.json
+.vscode/
